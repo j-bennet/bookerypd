@@ -7,13 +7,17 @@ from .serializers import BookSerializer
 class BookList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     """
     API endpoint that allows books to be viewed or created.
-    Supports filtering by category, author, or language using query parameters.
-    Example: /books/?category=Fiction&author=John Doe&language=en
+    Supports:
+    - Filtering by category, author, or language using query parameters
+      Example: /books/?category=Fiction&author=John Doe&language=en
+    - Text search in title and author fields using 'search' parameter
+      Example: /books/?search=harry potter
     """
 
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     filterset_fields = ["category", "language", "author"]
+    search_fields = ["title", "author"]
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
