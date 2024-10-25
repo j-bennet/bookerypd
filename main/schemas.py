@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel, Field
 
@@ -9,7 +8,7 @@ from .models import CATEGORIES, LANGUAGES
 class BookBase(BaseModel):
     title: str = Field(..., max_length=100)
     author: str = Field(..., max_length=100)
-    year: Optional[int] = None
+    year: int | None = None
     category: str = Field(default="Fiction", max_length=100)
     language: str = Field(default="en", max_length=100)
 
